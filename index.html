@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <main>
+      <div class="quiz-app">
+        <div class="quiz-header">
+          <div class="quiz-header-content">
+            <h1 class="quiz-title">Awesome Quiz App</h1>
+            <div class="quiz-timer">
+              Time Left
+              <span class="quiz-timer-value">10s</span>
+            </div>
+          </div>
+          <div class="quiz-progress"></div>
+        </div>
+
+        <div class="quiz-question-container">
+          <h2 class="quiz-question">1. What does HTML stand for?</h2>
+          <div class="quiz-options">
+            <button class="quiz-option">
+              <div class="quiz-option-value">Text Preprocessor</div>
+              <img src="" class="quiz-option-icon" />
+            </button>
+            <button class="quiz-option correct">
+              <div class="quiz-option-value">Hyper Text Markup Language</div>
+              <img src="" class="quiz-option-icon" />
+            </button>
+            <button class="quiz-option incorrect">
+              <div class="quiz-option-value">Hyper Text Multiple Language</div>
+              <img src="" class="quiz-option-icon" />
+            </button>
+            <button class="quiz-option">
+              <div class="quiz-option-value">Hyper Tool Multi Language</div>
+              <img src="" class="quiz-option-icon" />
+            </button>
+          </div>
+        </div>
+        <div class="hr"></div>
+        <div class="quiz-remaining-questions">
+          <span class="quiz-questions-current">1</span> of
+          <span class="quiz-questions-total">5</span> Questions
+        </div>
+      </div>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
