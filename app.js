@@ -19,6 +19,7 @@ let correctAnswers;
 let isTimerPaused;
 let waitTime = 1;
 let questions;
+let responses;
 
 function resetTimer(){
     currentTimer = timer;
@@ -31,6 +32,7 @@ function reset(){
     correctAnswers =0;
     isTimerPaused = false;
     questions = [];
+    responses = [];
 
     quizTimer.innerHTML = timerHTML;
     quizContainer.innerHTML = containerHTML;
@@ -78,9 +80,20 @@ function displayResult(){
     const buttons = document.createElement("div");
     buttons.classList.add("buttons");
 
+    const viewResponseBtn = document.createElement("button");
+    viewResponseBtn.classList.add("view-response-button");
+    viewResponseBtn.addEventListener("click", ()=>{
+        displayResponses();
+    })
+    const responseBtnText = document.createElement("span");
+    responseBtnText.classList.add("button-text");
+    responseBtnText.innerText = "View Responses";
+    viewResponseBtn.append(responseBtnText);
+    
+
     const viewAnswerBtn = document.createElement("button");
     viewAnswerBtn.classList.add("view-answer-button");
-    viewAnswerBtn.addEventListener("click", (event)=>{
+    viewAnswerBtn.addEventListener("click", ()=>{
         displayAnswers();
     });
     const viewBtnText = document.createElement("span");
@@ -88,9 +101,10 @@ function displayResult(){
     viewBtnText.innerText = "View Answers";
     viewAnswerBtn.append(viewBtnText);
 
+
     const playAgainBtn = document.createElement("button");
     playAgainBtn.classList.add("play-again-button");
-    playAgainBtn.addEventListener("click", (event)=>{
+    playAgainBtn.addEventListener("click", ()=>{
         randomQuestions(totalQuestionsCount, displayQuestion);
     })
     const playBtnText = document.createElement("span");
@@ -98,11 +112,72 @@ function displayResult(){
     playBtnText.innerText = "Play Again";
     playAgainBtn.append(playBtnText);
 
-    buttons.append(viewAnswerBtn, playAgainBtn);
+
+    buttons.append(viewAnswerBtn, viewResponseBtn, playAgainBtn);
 
     quizContainer.append(scoreHeading, scoreValue);
     quizFooter.append(buttons);
 }
+
+function backBtn(){
+    const backButton = document.createElement("button");
+    backButton.classList.add("back-button");
+    backButton.innerText = "Back";
+
+    backButton.addEventListener("click", ()=>{
+        displayResult();
+    })
+
+    quizFooter.append(backButton);
+}
+
+function displayResponses(){
+    quizTimer.innerHTML = "";
+    quizTimer.style.backgroundColor = "white";
+    quizContainer.innerHTML = "";
+    quizFooter.innerHTML = "";
+    quizContainer.classList.add('scrollable');
+
+    console.log(responses);
+    let questionIdx = 1;
+    responses.forEach(response =>{
+        const responseContainer = document.createElement("div");
+        responseContainer.classList.add("response-container");
+
+        const responseQuestion = document.createElement("span");
+        responseQuestion.classList.add("response-question");
+        responseQuestion.innerText = `${questionIdx}. ${response.question}`;
+
+        
+        const responseOption = document.createElement("button");
+        responseOption.classList.add("response-option");
+
+        const responseOptionText = document.createElement("span");
+        responseOptionText.classList.add("response-option-text");
+        responseOptionText.innerText = (response.option !== null ? response.option  : "UNATTEMPTED");
+        responseOption.append(responseOptionText);
+        if (response.isCorrect === true){
+            responseOption.classList.add("correct");
+        }else if (response.isCorrect === false){
+            responseOption.classList.add("incorrect");
+        }
+
+        if (response.option !== null){
+            const responseIcon = document.createElement("img");
+            responseIcon.classList.add("response-icon");
+            responseOption.append(responseIcon);
+        }
+        
+        responseContainer.append(responseQuestion, responseOption);
+        quizContainer.append(responseContainer);
+
+        questionIdx++;
+    });
+
+    backBtn();
+}
+
+
 
 function displayAnswers(){
     quizTimer.innerHTML = "";
@@ -131,15 +206,7 @@ function displayAnswers(){
     });
 
     // console.log(quizContainer);
-    const backButton = document.createElement("button");
-    backButton.classList.add("back-button");
-    backButton.innerText = "Back";
-
-    backButton.addEventListener("click", ()=>{
-        displayResult();
-    })
-
-    quizFooter.append(backButton);
+    backBtn();
 
 }
 
@@ -148,6 +215,7 @@ function checkOptions(event){
     const selectedAnswer = event.currentTarget.querySelector(".quiz-option-value").innerText;
 
 
+    
     // console.log(options.querySelectorAll('.quiz-option'));
     options.querySelectorAll('.quiz-option').forEach(optionBtn =>{
         optionBtn.disabled = true;
@@ -158,8 +226,10 @@ function checkOptions(event){
     
     if (selectedAnswer !== answer){
         event.currentTarget.classList.add("incorrect");
+        responses.push({question: questions[currentQuestionIndex].question, option: selectedAnswer, isCorrect: false});
     }else{
         correctAnswers++;
+        responses.push({question: questions[currentQuestionIndex].question, option: selectedAnswer, isCorrect: true});
     }
 
     isTimerPaused = true;
@@ -182,6 +252,7 @@ function displayQuestion(){
             timerValue.innerText = `${currentTimer}s`;
             currentTimer--;
             if (currentTimer < 0){
+                responses.push({question: questions[currentQuestionIndex].question, option: null, isCorrect: null});
                 loadNextQuestion();
                 clearInterval(timeOut);
             }
