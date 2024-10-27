@@ -1,130 +1,104 @@
 export const quizQuestions = [
-    {
-      question: "What is the time complexity of binary search?",
-      options: ["O(n)", "O(log n)", "O(n^2)", "O(1)"],
-      correctAnswer: "O(log n)"
-    },
-    {
-      question: "Which sorting algorithm has the worst-case time complexity of O(n log n)?",
-      options: ["Merge Sort", "Selection Sort", "Bubble Sort", "Insertion Sort"],
-      correctAnswer: "Merge Sort"
-    },
-    {
-      question: "Which data structure is used to implement recursion?",
-      options: ["Queue", "Array", "Stack", "Linked List"],
-      correctAnswer: "Stack"
-    },
-    {
-      question: "In which type of memory are variables stored when a function is called?",
-      options: ["Heap", "Stack", "Queue", "Register"],
-      correctAnswer: "Stack"
-    },
-    {
-      question: "What is the default port number for HTTP?",
-      options: ["80", "443", "21", "25"],
-      correctAnswer: "80"
-    },
-    {
-      question: "Which of the following is NOT a characteristic of Object-Oriented Programming?",
-      options: ["Inheritance", "Encapsulation", "Polymorphism", "Looping"],
-      correctAnswer: "Looping"
-    },
-    {
-      question: "What is the purpose of a hash function?",
-      options: ["Sorting data", "Searching data", "Mapping data to unique values", "Encrypting data"],
-      correctAnswer: "Mapping data to unique values"
-    },
-    {
-      question: "What is the Big-O notation of accessing an element in a hash table (on average)?",
-      options: ["O(1)", "O(log n)", "O(n)", "O(n^2)"],
-      correctAnswer: "O(1)"
-    },
-    {
-      question: "Which algorithm is primarily used for finding the shortest path in a graph?",
-      options: ["Binary Search", "Depth First Search", "Dijkstra's Algorithm", "Quick Sort"],
-      correctAnswer: "Dijkstra's Algorithm"
-    },
-    {
-      question: "What is a critical section in concurrent programming?",
-      options: ["A section that only one process can access at a time", "A function that needs high performance", "A memory location reserved for the OS", "A section that all processes must access simultaneously"],
-      correctAnswer: "A section that only one process can access at a time"
-    },
-    {
-      question: "Which data structure is typically used in Breadth-First Search (BFS)?",
-      options: ["Stack", "Queue", "Heap", "Graph"],
-      correctAnswer: "Queue"
-    },
-    {
-      question: "What does DNS stand for in networking?",
-      options: ["Direct Network System", "Data Network Source", "Domain Name System", "Digital Network System"],
-      correctAnswer: "Domain Name System"
-    },
-    {
-      question: "Which protocol is used for email transmission?",
-      options: ["FTP", "SMTP", "HTTP", "SSH"],
-      correctAnswer: "SMTP"
-    },
-    {
-      question: "Which principle states that subclasses should be substitutable for their base class?",
-      options: ["Open/Closed Principle", "Liskov Substitution Principle", "Dependency Inversion Principle", "Single Responsibility Principle"],
-      correctAnswer: "Liskov Substitution Principle"
-    },
-    {
-      question: "In big-endian byte order, which part of the data is stored first?",
-      options: ["Least significant byte", "Most significant byte", "Middle byte", "Last byte"],
-      correctAnswer: "Most significant byte"
-    },
-    {
-      question: "What is the main difference between TCP and UDP?",
-      options: ["UDP is connection-oriented, TCP is not", "TCP is faster than UDP", "TCP provides reliable data transmission, UDP does not", "UDP operates only on local networks"],
-      correctAnswer: "TCP provides reliable data transmission, UDP does not"
-    },
-    {
-      question: "In databases, what does ACID stand for?",
-      options: ["Accuracy, Consistency, Integration, Durability", "Atomicity, Consistency, Isolation, Durability", "Availability, Connectivity, Isolation, Dependency", "Access, Control, Integration, Durability"],
-      correctAnswer: "Atomicity, Consistency, Isolation, Durability"
-    },
-    {
-      question: "Which algorithm is commonly used for encryption?",
-      options: ["Bubble Sort", "Dijkstra's Algorithm", "AES", "Depth First Search"],
-      correctAnswer: "AES"
-    },
-    {
-      question: "What does REST stand for in web services?",
-      options: ["Representational State Transfer", "Resource State Transfer", "Remote Server Transfer", "Remote System Transmission"],
-      correctAnswer: "Representational State Transfer"
-    },
-    {
-      question: "What is a memory leak?",
-      options: ["A memory that is filled completely", "A program that runs out of memory", "Memory allocated but not freed", "Memory that is being swapped"],
-      correctAnswer: "Memory allocated but not freed"
-    },
-    {
-      question: "What is the best-case time complexity of Quick Sort?",
-      options: ["O(n^2)", "O(n)", "O(n log n)", "O(log n)"],
-      correctAnswer: "O(n log n)"
-    },
-    {
-      question: "What type of attack exploits the lack of input validation?",
-      options: ["Man-in-the-Middle Attack", "Phishing", "SQL Injection", "DDoS"],
-      correctAnswer: "SQL Injection"
-    },
-    {
-      question: "What does the 'this' keyword refer to in JavaScript?",
-      options: ["The global object", "The parent object", "The current function", "The current execution context"],
-      correctAnswer: "The current execution context"
-    },
-    {
-      question: "Which data structure allows insertion and deletion only at the ends?",
-      options: ["Queue", "Stack", "Deque", "Linked List"],
-      correctAnswer: "Deque"
-    },
-    {
-      question: "What is the main goal of garbage collection in programming languages?",
-      options: ["To improve program speed", "To reduce code complexity", "To free unused memory", "To optimize CPU usage"],
-      correctAnswer: "To free unused memory"
-    }
-  ];
+  {
+    question: "Which is the longest river in India?",
+    options: ["Yamuna", "Ganga", "Godavari", "Brahmaputra"],
+    correctAnswer: "Ganga"
+  },
+  {
+    question: "Who is known as the 'Father of Indian Cinema'?",
+    options: ["Raj Kapoor", "Dadasaheb Phalke", "Satyajit Ray", "B.R. Chopra"],
+    correctAnswer: "Dadasaheb Phalke"
+  },
+  {
+    question: "What is the capital of the Indian state of Arunachal Pradesh?",
+    options: ["Shillong", "Itanagar", "Dispur", "Kohima"],
+    correctAnswer: "Itanagar"
+  },
+  {
+    question: "Which Indian classical dance form originated in Kerala?",
+    options: ["Bharatanatyam", "Kathakali", "Odissi", "Kuchipudi"],
+    correctAnswer: "Kathakali"
+  },
+  {
+    question: "Who was the first Indian to win a Nobel Prize?",
+    options: ["C.V. Raman", "Rabindranath Tagore", "Mother Teresa", "Hargobind Khorana"],
+    correctAnswer: "Rabindranath Tagore"
+  },
+  {
+    question: "In which year did India gain independence from British rule?",
+    options: ["1945", "1947", "1950", "1952"],
+    correctAnswer: "1947"
+  },
+  {
+    question: "Which is the highest mountain peak in India?",
+    options: ["Mount Everest", "Kanchenjunga", "Nanda Devi", "K2"],
+    correctAnswer: "Kanchenjunga"
+  },
+  {
+    question: "Who was the first Indian woman to go into space?",
+    options: ["Kalpana Chawla", "Sunita Williams", "Indira Gandhi", "Rani Lakshmibai"],
+    correctAnswer: "Kalpana Chawla"
+  },
+  {
+    question: "Which Indian state is known as the 'Land of Five Rivers'?",
+    options: ["Haryana", "Punjab", "Gujarat", "Uttar Pradesh"],
+    correctAnswer: "Punjab"
+  },
+  {
+    question: "The 'Quit India' movement was launched by Mahatma Gandhi in which year?",
+    options: ["1940", "1942", "1944", "1946"],
+    correctAnswer: "1942"
+  },
+  {
+    question: "Which Mughal Emperor commissioned the construction of the Taj Mahal?",
+    options: ["Akbar", "Jahangir", "Shah Jahan", "Aurangzeb"],
+    correctAnswer: "Shah Jahan"
+  },
+  {
+    question: "Which Indian freedom fighter is known as the 'Iron Man of India'?",
+    options: ["Subhas Chandra Bose", "Sardar Vallabhbhai Patel", "Mahatma Gandhi", "Jawaharlal Nehru"],
+    correctAnswer: "Sardar Vallabhbhai Patel"
+  },
+  {
+    question: "Which festival is also known as the 'Festival of Lights' in India?",
+    options: ["Diwali", "Holi", "Eid", "Onam"],
+    correctAnswer: "Diwali"
+  },
+  {
+    question: "Which Indian city is known as the 'Silicon Valley of India'?",
+    options: ["Hyderabad", "Chennai", "Mumbai", "Bangalore"],
+    correctAnswer: "Bangalore"
+  },
+  {
+    question: "Which Indian state has the largest area?",
+    options: ["Madhya Pradesh", "Uttar Pradesh", "Rajasthan", "Maharashtra"],
+    correctAnswer: "Rajasthan"
+  },
+  {
+    question: "Who wrote the Indian national anthem?",
+    options: ["Bankim Chandra Chatterjee", "Rabindranath Tagore", "Subhas Chandra Bose", "Mahatma Gandhi"],
+    correctAnswer: "Rabindranath Tagore"
+  },
+  {
+    question: "Which Indian spice is known as 'King of Spices'?",
+    options: ["Cardamom", "Cinnamon", "Pepper", "Clove"],
+    correctAnswer: "Pepper"
+  },
+  {
+    question: "Who was the first President of India?",
+    options: ["Rajendra Prasad", "Jawaharlal Nehru", "Sarvepalli Radhakrishnan", "Indira Gandhi"],
+    correctAnswer: "Rajendra Prasad"
+  },
+  {
+    question: "In which year did India launch its first satellite, Aryabhata?",
+    options: ["1975", "1980", "1985", "1990"],
+    correctAnswer: "1975"
+  },
+  {
+    question: "Which Indian state is famous for its tea gardens?",
+    options: ["Kerala", "Assam", "Goa", "Punjab"],
+    correctAnswer: "Assam"
+  }
+];
 
-
-//   export default quizQuestions;
+// export default quizQuestions;

@@ -1,34 +1,55 @@
 import {quizQuestions} from "./questions.js";
 
-
-const timerValue = document.querySelector(".quiz-timer-value");
-const progressBar = document.querySelector(".quiz-progress");
 const question = document.querySelector(".quiz-question");
 const options = document.querySelector(".quiz-options");
-const currentQuestion = document.querySelector(".quiz-questions-current");
-const totalQuestions = document.querySelector(".quiz-questions-total");
+const progressBar = document.querySelector(".quiz-progress");
+const quizTimer = document.querySelector(".quiz-timer");
+const quizContainer = document.querySelector(".quiz-question-container");
+const quizFooter = document.querySelector(".quiz-footer");
+// const quizHeader = document.querySelector(".quiz-header-content");
+const timerHTML = quizTimer.innerHTML;
+const containerHTML = quizContainer.innerHTML;
+const footerHTML = quizFooter.innerHTML;  
 
-let timer = 10;
-let currentTimer = timer;
-let currentQuestionIndex = 0;
-let totalQuestionsCount = 5;
-let correctAnswers = totalQuestionsCount;
-let isTimerPaused = false;
-
-let questions = [];
+let timer;
+let currentTimer;
+let currentQuestionIndex;
+let totalQuestionsCount = 10;
+let correctAnswers;
+let isTimerPaused;
+let waitTime = 1;
+let questions;
 
 function resetTimer(){
     currentTimer = timer;
 }
 
+function reset(){
+    timer = 10;
+    resetTimer();
+    currentQuestionIndex = 0;
+    correctAnswers =0;
+    isTimerPaused = false;
+    questions = [];
+
+    quizTimer.innerHTML = timerHTML;
+    quizContainer.innerHTML = containerHTML;
+    quizFooter.innerHTML = footerHTML;
+}
+
+
 function loadNextQuestion(){
     currentQuestionIndex++;
     if (currentQuestionIndex < totalQuestionsCount){
         displayQuestion();
+    }else{
+        displayResult();
     }
 }
 
+
 function randomQuestions(numQuestions, displayQuestion){
+    reset();
     for (let i=0; i<numQuestions; i++){
         const randomIndex = Math.floor(Math.random() * quizQuestions.length);
         questions.push(quizQuestions[randomIndex])
@@ -36,7 +57,91 @@ function randomQuestions(numQuestions, displayQuestion){
     displayQuestion();
 }
 
+function displayResult(){
+    
+    quizTimer.innerHTML = "";
+    quizTimer.style.backgroundColor = "white";
+    quizContainer.innerHTML = "";
+    quizFooter.innerHTML = "";
+    quizContainer.classList.remove('scrollable');
 
+    progressBar.style.width = `${Math.floor( ((currentQuestionIndex)/totalQuestionsCount) * 100 )}%`;
+
+    const scoreHeading = document.createElement("h1");
+    scoreHeading.classList.add("score-heading");
+    scoreHeading.innerText = "Your Score";
+
+    const scoreValue = document.createElement("div");
+    scoreValue.classList.add("score-value");
+    scoreValue.innerText = `${correctAnswers} / ${totalQuestionsCount} (${Math.floor((correctAnswers/totalQuestionsCount)*100)}%)`;
+
+    const buttons = document.createElement("div");
+    buttons.classList.add("buttons");
+
+    const viewAnswerBtn = document.createElement("button");
+    viewAnswerBtn.classList.add("view-answer-button");
+    viewAnswerBtn.addEventListener("click", (event)=>{
+        displayAnswers();
+    });
+    const viewBtnText = document.createElement("span");
+    viewBtnText.classList.add("button-text");
+    viewBtnText.innerText = "View Answers";
+    viewAnswerBtn.append(viewBtnText);
+
+    const playAgainBtn = document.createElement("button");
+    playAgainBtn.classList.add("play-again-button");
+    playAgainBtn.addEventListener("click", (event)=>{
+        randomQuestions(totalQuestionsCount, displayQuestion);
+    })
+    const playBtnText = document.createElement("span");
+    playBtnText.classList.add("button-text");
+    playBtnText.innerText = "Play Again";
+    playAgainBtn.append(playBtnText);
+
+    buttons.append(viewAnswerBtn, playAgainBtn);
+
+    quizContainer.append(scoreHeading, scoreValue);
+    quizFooter.append(buttons);
+}
+
+function displayAnswers(){
+    quizTimer.innerHTML = "";
+    quizTimer.style.backgroundColor = "white";
+    quizContainer.innerHTML = "";
+    quizFooter.innerHTML = "";
+    quizContainer.classList.add('scrollable');
+
+    let questionIdx = 1;
+    questions.forEach(questionObj =>{
+        const questionContainer = document.createElement("div");
+        questionContainer.classList.add("display-question-container");
+
+        const displayQuestionText = document.createElement("span");
+        displayQuestionText.classList.add("display-question-text");
+        displayQuestionText.innerText = `${questionIdx}. ${questionObj.question}`;
+
+        const displayQuestionAnswer = document.createElement("button");
+        displayQuestionAnswer.classList.add("display-question-answer");
+        displayQuestionAnswer.innerText = questionObj.correctAnswer;
+
+        questionContainer.append(displayQuestionText, displayQuestionAnswer);
+        quizContainer.append(questionContainer);
+
+        questionIdx++;
+    });
+
+    // console.log(quizContainer);
+    const backButton = document.createElement("button");
+    backButton.classList.add("back-button");
+    backButton.innerText = "Back";
+
+    backButton.addEventListener("click", ()=>{
+        displayResult();
+    })
+
+    quizFooter.append(backButton);
+
+}
 
 function checkOptions(event){
     const answer = questions[currentQuestionIndex].correctAnswer;
@@ -53,25 +158,48 @@ function checkOptions(event){
     
     if (selectedAnswer !== answer){
         event.currentTarget.classList.add("incorrect");
-        correctAnswers--;
+    }else{
+        correctAnswers++;
     }
 
+    isTimerPaused = true;
     setTimeout(() => {
-        isTimerPaused = true;
         loadNextQuestion();
-    }, 3000);
+    }, waitTime*1000);
 }
 
 function displayQuestion(){
+    quizContainer.classList.remove('scrollable');
     
-
+    
+    //start the timer..
+    const timerValue = document.querySelector(".quiz-timer-value");
+    resetTimer();
+    isTimerPaused=false;
+    // console.log(quizTimer);
+    const timeOut = setInterval(() =>{
+        if (!isTimerPaused){
+            timerValue.innerText = `${currentTimer}s`;
+            currentTimer--;
+            if (currentTimer < 0){
+                loadNextQuestion();
+                clearInterval(timeOut);
+            }
+        }else{
+            clearInterval(timeOut);
+        }
+    }, 1000);
+    
+    quizContainer.innerHTML = "";
 
     //set total questions and current question..
+    const currentQuestion = document.querySelector(".quiz-questions-current");
+    const totalQuestions = document.querySelector(".quiz-questions-total");
     totalQuestions.innerText = `${totalQuestionsCount}`;
     currentQuestion.innerText = `${currentQuestionIndex+1}`;
 
     //update the progress bar..
-    progressBar.style.width = `${Math.floor( ((currentQuestionIndex+1)/totalQuestionsCount) * 100 )}%`;
+    progressBar.style.width = `${Math.floor( ((currentQuestionIndex)/totalQuestionsCount) * 100 )}%`;
 
     //displaying the question..
     question.innerHTML="";
@@ -84,6 +212,8 @@ function displayQuestion(){
     quizQuestionText.innerText = questions[currentQuestionIndex].question;
 
     question.append(quizIdx, quizQuestionText);
+
+    // console.log(question);
 
 
     //displaying options..
@@ -107,19 +237,10 @@ function displayQuestion(){
         options.append(optionBtn);
     });
 
+    // console.log(options);
+    quizContainer.append(question, options);
 
-    resetTimer();
-    isTimerPaused=false;
-    const timeOut = setInterval(() =>{
-        if (!isTimerPaused){
-            currentTimer--;
-            if (currentTimer <= 0){
-                loadNextQuestion();
-                clearInterval(timeOut);
-            }
-            timerValue.innerText = `${currentTimer}s`;
-        }
-    }, 1000);
+    
 }
 
 
