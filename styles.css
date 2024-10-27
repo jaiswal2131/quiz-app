@@ -79,8 +79,18 @@ main{
 }
 
 .quiz-question{
+    display: flex;
+}
+
+.quiz-question-index{
+    font-size: 26px;
+    padding-right: 4px;
+}
+
+.quiz-question-text{
     font-size: 26px;
     margin-bottom: 20px;
+    font-weight: bold;
 }
 
 .quiz-options{
@@ -112,6 +122,12 @@ main{
 .quiz-option:hover{
     color: #004085;
     background-color: #cce5ff;
+    border-color: #b8daff;
+}
+
+.quiz-option:not(.correct):not(.incorrect):disabled{
+    color: #2a3c4f;
+    background-color: #b3cdea;
     border-color: #b8daff;
 }
 
